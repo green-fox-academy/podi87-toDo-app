@@ -33,9 +33,9 @@ public class ToDoTest {
   public static void beforeAll(){
     tester1 = "testData.csv";
     tester2 = "testAdd.csv";
-    tester3 = "testEmptyFile";
-    tester4 = "testRemove";
-    tester5 = "testComplete";
+    tester3 = "testEmptyFile.csv";
+    tester4 = "testRemove.csv";
+    tester5 = "testComplete.csv";
     testPath1 = Paths.get(tester1);
     testPath2 = Paths.get(tester2);
     testPath3 = Paths.get(tester3);
