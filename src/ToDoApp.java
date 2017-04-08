@@ -17,7 +17,7 @@ public class ToDoApp {
           " -c   Completes a task";
 
   public static void main(String[] args) {
-    ToDo toDo = new ToDo(FILE_NAME, allToDo,todoFile);
+    ToDo toDo = new ToDo(FILE_NAME, allToDo, todoFile);
 
     if (args.length == 0) {
       toDo.printUsage(usage);

@@ -14,30 +14,39 @@ public class ToDoTest {
   private static String tester1;
   private static String tester2;
   private static String tester3;
+  private static String tester4;
+  private static String tester5;
   private static String testWord;
   private static List<String> testList1;
   private static List<String> testList2;
   private static List<String> testList3;
-  private static int testnum;
+  private static List<String> testList4;
+  private static List<String> testList5;
   private static Path testPath1;
   private static Path testPath2;
   private static Path testPath3;
+  private static Path testPath4;
+  private static Path testPath5;
   private static ToDo test;
 
   @BeforeClass
   public static void beforeAll(){
     tester1 = "testData.csv";
-    tester2 = "testData1.csv";
+    tester2 = "testAdd.csv";
     tester3 = "testEmptyFile";
+    tester4 = "testRemove";
+    tester5 = "testComplete";
     testPath1 = Paths.get(tester1);
     testPath2 = Paths.get(tester2);
     testPath3 = Paths.get(tester3);
+    testPath4 = Paths.get(tester4);
+    testPath5 = Paths.get(tester5);
     testWord = "testing";
     testList1 = new ArrayList<>();
     testList2 = new ArrayList<>();
     testList3 = new ArrayList<>();
-
-
+    testList4 = new ArrayList<>();
+    testList5 = new ArrayList<>();
   }
 
   @Test
@@ -63,29 +72,29 @@ public class ToDoTest {
     test.addTasks(testWord);
     testList2 = Files.readAllLines(testPath2);
     String new1 = testList1.get(1);
-    System.out.println(new1);
-    String new2 = testList2.get(1);
-    System.out.println(new2);
+    String new2 = testList2.get(testList2.size() - 1);
     assertEquals(new1, new2);
+    test.removeTasks(testList2.size());
   }
-
 
   @Test
   public void removeTasks() throws Exception {
-    test = new ToDo(tester2, testList2, testPath2);
+    test = new ToDo(tester4, testList4, testPath4);
+    test.removeTasks(2);
     testList1 = Files.readAllLines(testPath1);
+    testList4 = Files.readAllLines(testPath4);
+    assertEquals(testList1, testList4);
     test.addTasks(testWord);
-    testList2 = Files.readAllLines(testPath2);
-    String new1 = testList1.get(1);
-    System.out.println(new1);
-    String new2 = testList2.get(1);
-    System.out.println(new2);
-    assertEquals(new1, new2);
   }
 
   @Test
   public void completeTasks() throws Exception {
-
+    test = new ToDo(tester5, testList5, testPath5);
+    test.completeTasks(2);
+    testList5 = Files.readAllLines(testPath5);
+    assertEquals(testList5.get(0),testList5.get(1));
+    test.completeTasks(2);
+    testList5 = Files.readAllLines(testPath5);
+    assertTrue(testList5.get(0) != (testList5.get(1)));
   }
-
 }
