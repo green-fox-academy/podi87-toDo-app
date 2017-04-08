@@ -7,25 +7,29 @@ import java.util.List;
 
 public class ToDo {
 
-  private final String FILE_NAME = "data.csv";
-  private List<String> allToDo = new ArrayList<>();
-  private int num;
+  String FILE_NAME;
+  String usage;
+  List<String> allToDo;
+  int num;
+  Path path;
 
-  public void printUsage() {
-    System.out.println("\n" +"Java myTodo application\n" +
-            "=======================\n" +
-            "\n" +
-            "Command line arguments:\n" +
-            " -l   Lists all the tasks\n" +
-            " -a   Adds a new task\n" +
-            " -r   Removes an task\n" +
-            " -c   Completes an task");
+  public ToDo(String FILE_NAME, List<String> allToDo, Path path) {
+  this.FILE_NAME = FILE_NAME;
+  this.allToDo = allToDo;
+  this.path = path;
   }
 
-  public void listTasks() {
-    Path todoFile = Paths.get(FILE_NAME);
+  public ToDo() {
+  }
+
+  public void printUsage(String usage) {
+    System.out.println(usage);
+  }
+
+  public void listTasks(List<String> allToDo) {
+    path = Paths.get(FILE_NAME);
     try {
-      allToDo = Files.readAllLines(todoFile);
+      allToDo = Files.readAllLines(path);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -40,35 +44,34 @@ public class ToDo {
   }
 
   public void addTasks(String task) {
-    Path todoFile = Paths.get(FILE_NAME);
-
+    path = Paths.get(FILE_NAME);
     try {
-      allToDo = Files.readAllLines(todoFile);
+      allToDo = Files.readAllLines(path);
       allToDo.add("[ ]" + " " + task);
-      Files.write(todoFile, allToDo);
+      Files.write(path, allToDo);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   public void removeTasks(int num) {
-    Path todoFile = Paths.get(FILE_NAME);
+    path = Paths.get(FILE_NAME);
     try {
-      allToDo = Files.readAllLines(todoFile);
+      allToDo = Files.readAllLines(path);
       allToDo.remove(num - 1);
-      Files.write(todoFile, allToDo);
+      Files.write(path, allToDo);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   public void completeTasks(int num) {
-    Path todoFile = Paths.get(FILE_NAME);
+    path = Paths.get(FILE_NAME);
     try {
-      allToDo = Files.readAllLines(todoFile);
+      allToDo = Files.readAllLines(path);
       String partOfList = new String(allToDo.get(num - 1));
       allToDo.remove(num - 1 );
-      Files.write(todoFile, allToDo);
+      Files.write(path, allToDo);
       char[] partOfListChar = partOfList.toCharArray();
       boolean x = partOfList.contains("[ ]");
       if (x){
@@ -78,15 +81,9 @@ public class ToDo {
       }
       partOfList = String.valueOf(partOfListChar);
       allToDo.add(num - 1, partOfList);
-      Files.write(todoFile, allToDo);
+      Files.write(path, allToDo);
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public ToDo() {
-    this.allToDo = allToDo;
-    this.num = num;
-
   }
 }
