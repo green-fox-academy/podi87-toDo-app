@@ -85,7 +85,7 @@ public class ToDoTest {
     assertFalse(testList1.equals(testList4));
     test.removeTasks(testList4.size());
     testList4 = Files.readAllLines(testPath4);
-    assertEquals(testList1, testList4);
+    assertEquals(testList1.size(), testList4.size());
     test.addTasks(testWord);
   }
 
