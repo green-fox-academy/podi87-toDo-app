@@ -80,8 +80,10 @@ public class ToDoTest {
   @Test
   public void removeTasks() throws Exception {
     test = new ToDo(tester4, testList4, testPath4);
-    test.removeTasks(2);
     testList1 = Files.readAllLines(testPath1);
+    testList4 = Files.readAllLines(testPath4);
+    assertFalse(testList1.equals(testList4));
+    test.removeTasks(testList4.size());
     testList4 = Files.readAllLines(testPath4);
     assertEquals(testList1, testList4);
     test.addTasks(testWord);
